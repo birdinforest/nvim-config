@@ -4,7 +4,7 @@ require('internal.packer_commands')
 require('utils.globals')
 require('config')
 require('settings')
-require('colorscheme')
+
 require('keymappings')
 require('autocmds')
 require('functions')
@@ -15,3 +15,7 @@ require('lsp.setup')
 require('lsp.functions')
 
 require('snippets.react')
+
+require('tokyonightscheme')
+-- Enable vscodescheme requests to disable tokyonightscheme in `/lua/config.lua` --
+--require('vscodescheme')

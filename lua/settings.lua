@@ -70,3 +70,12 @@ end
 for k, v in pairs(globals) do
   vim.g[k] = v
 end
+
+--NeoVite settings. Ref https://neovide.dev/configuration.html.
+  vim.cmd([[
+    if exists("g:neovide")
+      let g:neovide_cursor_animation_length=0.03
+      let g:neovide_cursor_trail_size=0.3
+      let g:neovide_refresh_rate=60
+    endif
+  ]])

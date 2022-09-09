@@ -22,6 +22,7 @@ return require('packer').startup({
 
     -- Themes
     use { 'folke/tokyonight.nvim' }
+    use 'Mofiqul/vscode.nvim'
 
     -- Treesitter
     use { 'nvim-treesitter/nvim-treesitter', config = "require('plugins.treesitter')" }
@@ -42,7 +43,14 @@ return require('packer').startup({
     use { 'cljoly/telescope-repo.nvim' }
     use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
     use { 'nvim-pack/nvim-spectre' }
-    use { 'kyazdani42/nvim-tree.lua', config = "require('plugins.tree')" }
+    use { 
+      'kyazdani42/nvim-tree.lua',  
+      requires = {
+        'kyazdani42/nvim-web-devicons', -- optional, for file icons
+      },
+      tag = 'nightly', -- optional, updated every week. (see issue #1193)
+      config = "require('plugins.tree')" 
+    }
     use { 'gbprod/stay-in-place.nvim',
       config = function()
         require('stay-in-place').setup({})
@@ -62,8 +70,12 @@ return require('packer').startup({
     use { 'hrsh7th/cmp-path', after = 'cmp-buffer' }
     use { 'hrsh7th/cmp-cmdline', after = 'cmp-path' }
     use { 'hrsh7th/cmp-calc', after = 'cmp-cmdline' }
-    use { 'tzachar/cmp-tabnine', run = './install.sh', requires = 'hrsh7th/nvim-cmp', after = 'cmp-calc' }
-    use { 'David-Kunz/cmp-npm', after = 'cmp-tabnine', requires = 'nvim-lua/plenary.nvim',
+      -- Tabnine --
+    --use { 'tzachar/cmp-tabnine', run = './install.sh', requires = 'hrsh7th/nvim-cmp', after = 'cmp-calc' }
+    --use { 'David-Kunz/cmp-npm', after = 'cmp-tabnine', requires = 'nvim-lua/plenary.nvim',
+      -- Capilot --
+    use { 'github/copilot.vim' }
+    use { 'David-Kunz/cmp-npm', after = 'copilot.vim', requires = 'nvim-lua/plenary.nvim',
       config = "require('plugins.cmp-npm')" }
     use { 'saadparwaiz1/cmp_luasnip', after = 'cmp-npm' }
 
@@ -96,8 +108,10 @@ return require('packer').startup({
     use { 'ggandor/lightspeed.nvim', config = "require('plugins.lightspeed')" }
     use { 'folke/which-key.nvim', config = "require('plugins.which-key')", event = "BufWinEnter" }
     use { 'ecosse3/galaxyline.nvim', after = 'nvim-gps', config = "require('plugins.galaxyline')", event = "BufWinEnter" }
-    use { 'romgrk/barbar.nvim', branch = 'feat/wipeout-cmds', requires = { 'kyazdani42/nvim-web-devicons' },
-      config = "require('plugins.barbar')" }
+    use {
+      'romgrk/barbar.nvim',
+      requires = {'kyazdani42/nvim-web-devicons'}
+    }
     use { 'antoinemadec/FixCursorHold.nvim' } -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
     use { 'rcarriga/nvim-notify' }
     use { 'vuki656/package-info.nvim', event = "BufEnter package.json", config = "require('plugins.package-info')" }
