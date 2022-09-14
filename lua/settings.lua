@@ -79,3 +79,10 @@ end
       let g:neovide_refresh_rate=60
     endif
   ]])
+
+-- Copilot settings to fix issue `<Tab> map has been disabled or is claimed by another plugin`
+-- Ref: https://www.reddit.com/r/neovim/comments/sk70rk/using_github_copilot_in_neovim_tab_map_has_been/
+vim.g.copilot_no_tab_map = true
+vim.g.copilot_assume_mapped = true
+vim.g.copilot_tab_fallback = ""
+

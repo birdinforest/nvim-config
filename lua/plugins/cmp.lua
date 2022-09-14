@@ -72,12 +72,20 @@ cmp.setup {
     },
     ['<CR>'] = cmp.mapping.confirm({ select = EcoVim.plugins.completion.select_first_on_enter }),
     ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
+      local copilot_keys = vim.fn['copilot#Accept']()
+      -- Has to remove this line. Otherwise the TAB doesn't work to compolete the reccomendation, but select the
+      -- first item in the tabnine item list.
+      -- Use C-K and C-j to select tabine item.
+      --if cmp.visible() then
+        --cmp.select_next_item()
+      if luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif copilot_keys ~= '' and type(copilot_keys) == 'string' then
+        -- To fix TAB issue with copilot.
+        -- Ref: https://www.reddit.com/r/neovim/comments/sk70rk/using_github_copilot_in_neovim_tab_map_has_been/
+        vim.api.nvim_feedkeys(copilot_keys, 'i', true)
       elseif luasnip.expandable() then
         luasnip.expand()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
       elseif check_backspace() then
         fallback()
       else
